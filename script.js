@@ -14,19 +14,22 @@ function getHandle(userEntry) {
     fetch (`https://api.github.com/users/${userEntry}/repos`)
     .then(response => response.json())
     .then(responseJson => displayResults(responseJson))
-    .catch(error => alert("GitHub handle not found."));
+    .catch(error => alert(error));
 }
 
 
 function displayResults (responseJson){
     console.log(responseJson);
+    
     $('.results').empty();
-    for (let index = 0; i < responseJson.length; i++) {
-    $('.results').append(`<h2>${responseJson[i].name}</h2>`);
-    $('results').append(`<a href=${responseJson[i].html_url}"></a>`)
+ 
+    for (let index = 0; index < responseJson.length; index++) {
+    $('.results').append(`<h2>${responseJson[index].name}</h2>`);
+
+    $('.results').append(`<a href=${responseJson[index].html_url}>${responseJson[index].html_url}</a>`)
     }
     $('.results').removeClass('hidden');
-
+  
 }
 
 function watchForm(){
@@ -35,6 +38,7 @@ function watchForm(){
         let userEntry = $('#handleSearch').val(); 
         getHandle(userEntry);
         console.log(userEntry);
+
     });
 }
 
